@@ -1,7 +1,7 @@
+#include "avl.c"
 #include "stdlib.h"
 #include "stdio.h"
 #include <math.h>
-#include "avl.c"
 
 int main() {
     AvlTree* tree = NULL;
