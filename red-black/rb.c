@@ -18,7 +18,7 @@ RedBlackTree* createNewNode(RedBlackTree* root, int value) {
 
 void insert(RedBlackTree** tree, int value) {
   RedBlackTree* root = getRoot(*tree, value);
-  enum InsertStrategy insertStrategy = getInsertStrategy(root, value);
+  InsertStrategy insertStrategy = getInsertStrategy(root, value);
 
   RedBlackTree* newNode = createNewNode(root, value);
 
@@ -42,7 +42,7 @@ void insert(RedBlackTree** tree, int value) {
       break;
     case INSERT_SUCH_AS_LEFT_SON_OF_RED_NODE:
     case INSERT_SUCH_AS_RIGHT_SON_OF_RED_NODE:
-      enum BalanceStrategy balanceStrategy = getBalanceStrategy(root, insertStrategy, newNode->value);
+      BalanceStrategy balanceStrategy = getBalanceStrategy(root, insertStrategy, newNode->value);
       
       *(insertStrategy == INSERT_SUCH_AS_LEFT_SON_OF_RED_NODE ? &root->left : &root->right) = newNode;
       newNode->father = root;    
@@ -103,7 +103,7 @@ void simpleRotationLeft(RedBlackTree* newNode) {
 
   RedBlackTree* newGrandFather = father->father;
   if (newGrandFather != NULL) {
-    enum Position newFatherPosition = getPosition(newGrandFather, father->value);
+    Position newFatherPosition = getPosition(newGrandFather, father->value);
     *(newFatherPosition == LEFT ? &newGrandFather->left : &newGrandFather->right) = father;
   }
 }
@@ -122,7 +122,7 @@ void simpleRotationRight(RedBlackTree* newNode) {
 
   RedBlackTree* newGrandFather = father->father;
   if (newGrandFather != NULL) {
-    enum Position newFatherPosition = getPosition(newGrandFather, father->value);
+    Position newFatherPosition = getPosition(newGrandFather, father->value);
     *(newFatherPosition == LEFT ? &newGrandFather->left : &newGrandFather->right) = father;
   }
 }

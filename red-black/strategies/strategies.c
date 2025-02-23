@@ -1,6 +1,6 @@
 #include "strategies.h"
 
-enum Position getPosition(RedBlackTree* root, int value) {
+Position getPosition(RedBlackTree* root, int value) {
   return value < root->value ? LEFT : RIGHT;
 }
 
@@ -13,7 +13,7 @@ RedBlackTree* getRoot(RedBlackTree* tree, int value) {
   RedBlackTree* currentNode = tree;
 
   while (1) {
-    enum Position postionToInsert = getPosition(currentNode, value);
+    Position postionToInsert = getPosition(currentNode, value);
 
     if (postionToInsert == LEFT) {
       if (currentNode->left == NULL) break;
@@ -27,12 +27,12 @@ RedBlackTree* getRoot(RedBlackTree* tree, int value) {
   return currentNode;
 }
 
-enum InsertStrategy getInsertStrategy(RedBlackTree* root, int value) {
+InsertStrategy getInsertStrategy(RedBlackTree* root, int value) {
   if (root == NULL) {
     return INSERT_IN_ROOT;
   }
 
-  enum Position position = getPosition(root, value);
+  Position position = getPosition(root, value);
   RedBlackTree* grandFather = root->father;
 
   if (grandFather == NULL) {
@@ -60,7 +60,7 @@ enum InsertStrategy getInsertStrategy(RedBlackTree* root, int value) {
  * 
    )
  */
-enum BalanceStrategy getBalanceStrategy(RedBlackTree* root, enum InsertStrategy insertStrategy, int value) {
+BalanceStrategy getBalanceStrategy(RedBlackTree* root, InsertStrategy insertStrategy, int value) {
   if (INSERT_SUCH_AS_LEFT_SON_OF_RED_NODE || INSERT_SUCH_AS_RIGHT_SON_OF_RED_NODE) {
     RedBlackTree* nodeGrandFather = root->father;
     
@@ -74,8 +74,8 @@ enum BalanceStrategy getBalanceStrategy(RedBlackTree* root, enum InsertStrategy 
       return BALANCE_BY_PARENTS_COLORS;
     }
   
-    enum Position fatherPosition = getPosition(nodeGrandFather, root->value);
-    enum Position newRootPostion = insertStrategy == INSERT_SUCH_AS_LEFT_SON_OF_RED_NODE ? LEFT : RIGHT;
+    Position fatherPosition = getPosition(nodeGrandFather, root->value);
+    Position newRootPostion = insertStrategy == INSERT_SUCH_AS_LEFT_SON_OF_RED_NODE ? LEFT : RIGHT;
   
     if (fatherPosition == LEFT && newRootPostion == LEFT) {
       return BALANCE_BY_SIMPLE_ROTATION_RIGHT;

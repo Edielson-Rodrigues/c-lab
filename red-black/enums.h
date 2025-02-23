@@ -1,16 +1,16 @@
-enum Color {
+typedef enum Color {
   BLACK = 0,
   RED = 1
-};
+} Color;
 
-enum Position {
+typedef enum Position {
   LEFT = 0,
   RIGHT = 1
-};
+} Position;
 
 typedef struct RedBlackTree {
   int value;
-  enum Color color;
+  Color color;
   struct RedBlackTree* left;
   struct RedBlackTree* right;
   struct RedBlackTree* father;
